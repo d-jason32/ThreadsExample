@@ -33,6 +33,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
+
+    FibonacciDemoNoBgThrd()
+
 }
 
 // ToDo 1: Call `FibonacciDemoNoBgThrd` that calculates the Fibonacci number of a given number.
