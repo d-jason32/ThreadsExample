@@ -73,20 +73,27 @@ fun TimerScreen(
         if (timerViewModel.isRunning) {
             Button(
                 onClick = timerViewModel::cancelTimer,
-                modifier = modifier.padding(50.dp)
+                //modifier = modifier.padding(50.dp)
             ) {
                 Text("Cancel")
             }
         } else {
-            Button(
-                enabled = timerViewModel.selectedHour +
-                        timerViewModel.selectedMinute +
-                        timerViewModel.selectedSecond > 0,
-                onClick = timerViewModel::startTimer,
-                modifier = modifier.padding(top = 50.dp)
-            ) {
-                Text("Start")
-            }
+                Button(
+                    enabled = timerViewModel.selectedHour +
+                            timerViewModel.selectedMinute +
+                            timerViewModel.selectedSecond > 0,
+                    onClick = timerViewModel::startTimer
+                ) {
+                    Text("Start")
+                }
+
+
+        }
+        Button(
+            // Access the resetTimer function from the ViewModel
+            onClick = timerViewModel::resetTimer,
+        ) {
+            Text("Reset the timer")
         }
     }
 }
@@ -109,9 +116,9 @@ fun TimePicker(
     onTimePick: (Int, Int, Int) -> Unit = { _: Int, _: Int, _: Int -> }
 ) {
     // Values must be remembered for calls to onPick()
-    var hourVal by remember { mutableIntStateOf(hour) }
-    var minVal by remember { mutableIntStateOf(min) }
-    var secVal by remember { mutableIntStateOf(sec) }
+    var hourVal by remember(hour) { mutableIntStateOf(hour) }
+    var minVal by remember(min) { mutableIntStateOf(min) }
+    var secVal by remember(sec) { mutableIntStateOf(sec) }
 
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -171,9 +178,11 @@ fun NumberPickerWrapper(
                 setOnValueChangedListener { numberPicker, oldVal, newVal -> onNumPick(newVal) }
                 minValue = minVal
                 maxValue = maxVal
-                value = initVal
                 setFormatter(numFormat)
             }
+        },
+        update = { view ->
+            view.value = initVal
         }
     )
 }
