@@ -34,7 +34,7 @@ import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
-
+@Preview
 @Composable
 fun TimerScreen(
     modifier: Modifier = Modifier,
@@ -52,7 +52,7 @@ fun TimerScreen(
             }
             Text(
                 text = timerText(timerViewModel.remainingMillis),
-                fontSize = 40.sp,
+                fontSize = 60.sp,
             )
         }
         TimePicker(
@@ -91,6 +91,7 @@ fun timerText(timeInMillis: Long): String {
         duration.inWholeHours, duration.inWholeMinutes % 60, duration.inWholeSeconds % 60)
 }
 
+@Preview
 @Composable
 fun TimePicker(
     hour: Int = 0,
@@ -143,7 +144,7 @@ fun TimePicker(
         }
     }
 }
-
+@Preview
 @Composable
 fun NumberPickerWrapper(
     initVal: Int = 0,
