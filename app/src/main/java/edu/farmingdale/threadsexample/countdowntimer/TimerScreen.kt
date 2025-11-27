@@ -40,6 +40,14 @@ fun TimerScreen(
     modifier: Modifier = Modifier,
     timerViewModel: TimerViewModel = viewModel()
 ) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+
+    // Toast notification when timer ends
+    LaunchedEffect(timerViewModel.timerDone) {
+        if (timerViewModel.timerDone) {
+            android.widget.Toast.makeText(context, "Timer Done", android.widget.Toast.LENGTH_SHORT).show()
+        }
+    }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             modifier = modifier
@@ -52,6 +60,7 @@ fun TimerScreen(
             }
             Text(
                 text = timerText(timerViewModel.remainingMillis),
+                // Make the text larger
                 fontSize = 60.sp,
             )
         }

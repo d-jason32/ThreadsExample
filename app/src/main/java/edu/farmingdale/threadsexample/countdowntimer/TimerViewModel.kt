@@ -34,6 +34,10 @@ class TimerViewModel : ViewModel() {
     var isRunning by mutableStateOf(false)
         private set
 
+    // Variable timer done added to trigger toast notification
+    var timerDone by mutableStateOf(false)
+        private set
+
     fun selectTime(hour: Int, min: Int, sec: Int) {
         selectedHour = hour
         selectedMinute = min
@@ -47,6 +51,8 @@ class TimerViewModel : ViewModel() {
         // Start coroutine that makes the timer count down
         if (totalMillis > 0) {
             isRunning = true
+            // timer done set to false when starting timer
+            timerDone = false
             remainingMillis = totalMillis
 
             timerJob = viewModelScope.launch {
@@ -56,6 +62,8 @@ class TimerViewModel : ViewModel() {
                 }
 
                 isRunning = false
+                // timer done set to true when timer ends
+                timerDone = true
             }
         }
     }
@@ -65,6 +73,8 @@ class TimerViewModel : ViewModel() {
             timerJob?.cancel()
             isRunning = false
             remainingMillis = 0
+            // if you cancel the timer, timer done is false
+            timerDone = false
         }
     }
 
