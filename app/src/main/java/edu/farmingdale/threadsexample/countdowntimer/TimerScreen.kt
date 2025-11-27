@@ -43,9 +43,22 @@ fun TimerScreen(
     val context = androidx.compose.ui.platform.LocalContext.current
 
     // Toast notification when timer ends
+    // added sound effect when the timer ends
     LaunchedEffect(timerViewModel.timerDone) {
         if (timerViewModel.timerDone) {
+            // toast notification
             android.widget.Toast.makeText(context, "Timer Done", android.widget.Toast.LENGTH_SHORT).show()
+            // try catch for playing sound
+            try {
+                // notification sound
+                val notification = android.media.RingtoneManager.getDefaultUri(android.media.RingtoneManager.TYPE_NOTIFICATION)
+                // get ringtone, basic ringtone play code from android documentation
+                val r = android.media.RingtoneManager.getRingtone(context, notification)
+                // play if the ringtone is not null
+                r.play()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
