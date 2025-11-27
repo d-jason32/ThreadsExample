@@ -74,7 +74,11 @@ fun TimerScreen(
             Text(
                 text = timerText(timerViewModel.remainingMillis),
                 // Make the text larger
-                fontSize = 60.sp,
+                fontSize = 50.sp,
+                // Color red and bold during last 10 seconds
+                color = if (timerViewModel.remainingMillis <= 10000 && timerViewModel.remainingMillis > 0) Color.Red else Color.Unspecified,
+                // Bold font weight during last 10 seconds
+                fontWeight = if (timerViewModel.remainingMillis <= 10000 && timerViewModel.remainingMillis > 0) androidx.compose.ui.text.font.FontWeight.Bold else androidx.compose.ui.text.font.FontWeight.Normal
             )
         }
         TimePicker(
