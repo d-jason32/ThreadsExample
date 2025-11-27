@@ -105,7 +105,7 @@ fun FibonacciDemoWithCoroutine() {
 }
 
 suspend fun fibonacciSuspend(n: Long): Long {
-    //delay(10)
+    delay(10)
     return if (n <= 1) n else fibonacciSuspend(n - 1) +
             fibonacciSuspend(n - 2)
 }
